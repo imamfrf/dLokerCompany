@@ -111,64 +111,36 @@ public class MainActivity extends AppCompatActivity
         db.getReference("Lamaran").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                for (final DataSnapshot snapshot : dataSnapshot.getChildren()){
                     if (snapshot.child("idCompany").getValue().equals(myUid)){
-                      uidP = snapshot.child("idPelamar").getValue().toString();
-                      db.getReference("Users").addValueEventListener(new ValueEventListener() {
-                          @Override
-                          public void onDataChange(DataSnapshot dataSnapshot1) {
-                              for (DataSnapshot snapshot1 : dataSnapshot1.getChildren()){
-                                  if (snapshot1.getKey().equals(uidP)){
-                                      namaP = snapshot1.child("Nama").getValue(String.class);
-                                      listItems.add(new List_Item(namaP, "tes"));
-                                  }
-//                                  else{
-//                                      Toast.makeText(MainActivity.this, "uidP = "+snapshot1.getKey(), Toast.LENGTH_LONG).show();
-//                                  }
-                              }
-                          }
+                      //uidP = snapshot.child("idPelamar").getValue().toString();
+                        db.getReference("Users").addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot1) {
+                                listItems.clear();
+                                for (DataSnapshot snapshot1 : dataSnapshot1.getChildren()){
+                                    String uidP = snapshot.child("idPelamar").getValue(String.class);
+                                    if (snapshot1.getKey().equals(uidP)){
+                                        String namaPl = snapshot1.child("Nama").getValue(String.class);
+                                        //namaP = snapshot1.child("Nama").getValue(String.class);
+                                        listItems.add(new List_Item(namaPl, "tes"));
+                                        //nama.remove(0);
+                                    }
+                                }
+                                adapter = new myAdapter(listItems, MainActivity.this);
+                                recyclerView.setAdapter(adapter);
+                                adapter.notifyDataSetChanged();
+                            }
 
-                          @Override
-                          public void onCancelled(DatabaseError databaseError) {
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
 
-                          }
-                      });
-                    }
-                    else {
-                        Toast.makeText(MainActivity.this, "myUid = "+snapshot.child("idCompany").getValue(), Toast.LENGTH_LONG).show();
-
+                            }
+                        });
                     }
 
                 }
-                //String namaP, desc, value;
-                //FirebaseDatabase idP = db.getReference("User"));
-//                listItems1 = new ArrayList<List_Item>();
-//                if (dataSnapshot.child("idPelamar").getValue().toString().equals(db.getReference().child("Users").addValueEventListener(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(DataSnapshot dataSnapshot) {
-//                        for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-//                            String value = snapshot.getKey().toString();
-//                            if (snapshot.child("accType").getValue().equals("Pelamar")) {
-//                                namaP = snapshot.child("Nama").getValue().toString();
-//                                descP = snapshot.child("Disabilitas").getValue().toString();
-//                                listItems1.add(new List_Item(namaP, descP, 1));
-//                            }
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(DatabaseError databaseError) {
-//
-//                    }
-//                }))){
-//                    listItems = listItems1;
-////                    listItems.add(new List_Item("tes", "tes", 1));
-//                    //Toast.makeText(MainActivity.this, namaP+" "+descP, Toast.LENGTH_LONG).show();
-//                    //listItems.add(new List_Item("tes", "tes", 1));
-//                    //listItems = listItems1;
-//
-//                }
-                //listItems.add(new List_Item(dataSnapshot.child("")))
+
 
             }
 
@@ -178,9 +150,9 @@ public class MainActivity extends AppCompatActivity
             }
         });
         //listItems = new ArrayList<List_Item>();
-        listItems.add(new List_Item("tes", "tes"));
-        adapter = new myAdapter(listItems, MainActivity.this);
-        recyclerView.setAdapter(adapter);
+        //listItems.add(new List_Item("tes", "tes"));
+//            adapter = new myAdapter(listItems, MainActivity.this);
+//            recyclerView.setAdapter(adapter);
 
     }
 
