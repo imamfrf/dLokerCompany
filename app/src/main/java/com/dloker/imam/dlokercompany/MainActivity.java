@@ -1,11 +1,19 @@
 package com.dloker.imam.dlokercompany;
 
+import android.app.ActionBar;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,14 +27,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
@@ -35,30 +47,116 @@ public class MainActivity extends AppCompatActivity
     private TextView tv_compName, tv_compEmail;
     private ImageView img_compLogo;
     private FirebaseAuth mAuth;
-    public RecyclerView recyclerView;
-    public RecyclerView.Adapter adapter;
-    public List<List_Item> listItems;
-    public String uidP, namaP;
+    private FirebaseAuth.AuthStateListener mListener;
+    private HomeFragment homef;
+    private LowonganFragment lwgf;
+    private TabLayout tabLayout;
+    private Toolbar toolbar;
+    static int count;
+    private Settings stg;
 
+    MainPagerAdapter mMainPagerAdapter;
+    ViewPager mViewPager;
 
+    public ViewPager getmViewPager() {
+        return mViewPager;
+    }
+
+    public TabLayout getTabLayout() {
+        return tabLayout;
+    }
+
+    public Toolbar getToolbar() {
+        return toolbar;
+    }
+
+    public void showActionBar(){
+        getSupportActionBar().show();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         db = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
-        recyclerView = findViewById(R.id.recV_home);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        //getSupportActionBar().setTitle("Lamaran Masuk");
+        //setActionBarTitle("Lamaran Masuk");
+
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar1);
+
+
+
+
+        tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        tabLayout.addTab(tabLayout.newTab().setText("Terkini"));
+        tabLayout.addTab(tabLayout.newTab().setText("Diterima"));
+        tabLayout.addTab(tabLayout.newTab().setText("Ditolak"));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        mMainPagerAdapter = new MainPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+
+        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager.setAdapter(mMainPagerAdapter);
+        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                mViewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+
+        mListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+
+                if (user != null) {
+                    //Log.d(TAG, "sing in : "+user.getUid() );
+                } else {
+                    Toast.makeText(getApplicationContext(), "Keluar ", Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                }
+
+
+            }
+        };
+
+        homef = new HomeFragment();
+        lwgf = new LowonganFragment();
+        stg = new Settings();
+        //setFragment(homef);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setElevation(0);
+        //toolbar.setElevation(0);
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(MainActivity.this, AddLowongan.class);
+                startActivity(intent);
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
             }
         });
 
@@ -70,8 +168,10 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.getMenu().getItem(0).setChecked(true);
 
-        db.getReference("Users").child(mAuth.getCurrentUser().getUid()).child("Nama").addValueEventListener(new ValueEventListener() {
+
+        db.getReference("Users").child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
@@ -79,7 +179,14 @@ public class MainActivity extends AppCompatActivity
                 NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
                 View headerView = navigationView.getHeaderView(0);
                 tv_compName = headerView.findViewById(R.id.tv_namaComp);
-                tv_compName.setText(dataSnapshot.getValue(String.class));
+                tv_compName.setText(dataSnapshot.child("Nama").getValue(String.class));
+                tv_compEmail = headerView.findViewById(R.id.tv_emailComp);
+                tv_compEmail.setText(dataSnapshot.child("Email").getValue(String.class));
+                img_compLogo = headerView.findViewById(R.id.img_logoComp);
+                //Picasso.get().load(dataSnapshot.child("Pict").getValue(String.class)).into(img_compLogo);
+                Glide.with(MainActivity.this).load(dataSnapshot.child("Pict").getValue(String.class))
+                        .into(img_compLogo);
+
             }
 
             @Override
@@ -106,54 +213,18 @@ public class MainActivity extends AppCompatActivity
                 Log.w(MainActivity.class.getSimpleName(), "Failed to read value.", error.toException());
             }
         });
-        listItems = new ArrayList<List_Item>();
-        final String myUid = mAuth.getCurrentUser().getUid();
-        db.getReference("Lamaran").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (final DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    if (snapshot.child("idCompany").getValue().equals(myUid)){
-                      //uidP = snapshot.child("idPelamar").getValue().toString();
-                        db.getReference("Users").addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot1) {
-                                listItems.clear();
-                                for (DataSnapshot snapshot1 : dataSnapshot1.getChildren()){
-                                    String uidP = snapshot.child("idPelamar").getValue(String.class);
-                                    if (snapshot1.getKey().equals(uidP)){
-                                        String namaPl = snapshot1.child("Nama").getValue(String.class);
-                                        //namaP = snapshot1.child("Nama").getValue(String.class);
-                                        listItems.add(new List_Item(namaPl, "tes"));
-                                        //nama.remove(0);
-                                    }
-                                }
-                                adapter = new myAdapter(listItems, MainActivity.this);
-                                recyclerView.setAdapter(adapter);
-                                adapter.notifyDataSetChanged();
-                            }
 
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });
-                    }
-
-                }
+        count = 0;
 
 
-            }
+    }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+    public void setFragment(Fragment fragment) {
 
-            }
-        });
-        //listItems = new ArrayList<List_Item>();
-        //listItems.add(new List_Item("tes", "tes"));
-//            adapter = new myAdapter(listItems, MainActivity.this);
-//            recyclerView.setAdapter(adapter);
-
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.cont_layout, fragment);
+        ft.addToBackStack(null);
+        ft.commit();
     }
 
     @Override
@@ -161,8 +232,14 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
+        } else if (count == 0){
+            //super.onBackPressed();
+            Toast.makeText(MainActivity.this, "Tekan back sekali lagi untuk keluar", Toast.LENGTH_SHORT).show();
+            count++;
+            //getFragmentManager().popBackStack();
+        }
+        else {
+            finish();
         }
     }
 
@@ -180,11 +257,6 @@ public class MainActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -194,22 +266,54 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        if (id == R.id.nav_home) {
+           // setFragment(homef);
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.remove(lwgf);
+            ft.remove(stg);
+            ft.commit();
+            toolbar.setVisibility(View.VISIBLE);
+            tabLayout.setVisibility(View.VISIBLE);
+            mViewPager.setVisibility(View.VISIBLE);
+            setActionBarTitle("Lamaran Masuk");
         }
+        else if (id == R.id.nav_myJob){
+            setFragment((lwgf));
+            //tabLayout.setVisibility(View.GONE);
+        }
+        else if (id == R.id.nav_settings){
+            setFragment(stg);
+        }
+        else if (id == R.id.nav_keluar){
+            mAuth.signOut();
+        }
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+
+    }
+
+    public void setActionBarTitle(String title){
+        getSupportActionBar().setTitle(title);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        getSupportActionBar().setTitle("Lamaran Masuk");
+        mAuth.addAuthStateListener(mListener);
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        if(mListener != null){
+
+            mAuth.removeAuthStateListener(mListener);
+        }
     }
 }

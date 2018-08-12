@@ -3,59 +3,49 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:padding="@dimen/padding"
     android:background="@color/background"
+    android:padding="20dp"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".LupaPass">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:gravity="center_horizontal"
+            android:gravity="center"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <ImageView
-                android:src="@drawable/logo218x107partner2"
-                android:background="@color/tranparant"
+                android:src="@drawable/logo218x107"
                 android:layout_width="@dimen/logo_width"
                 android:layout_height="@dimen/logo_width" />
 
             <EditText
                 android:inputType="textEmailAddress"
-                android:id="@+id/email_login"
+                android:id="@+id/email_forget"
                 android:layout_marginTop="@dimen/top"
                 android:background="@color/white"
                 android:hint="@string/email"
                 android:layout_width="@dimen/edit_width"
                 android:layout_height="@dimen/edit_height" />
 
-            <EditText
-                android:inputType="textPassword"
-                android:background="@color/white"
-                android:layout_marginTop="@dimen/top"
-                android:hint="@string/kata_sandi"
-                android:id="@+id/password_login"
-                android:layout_width="@dimen/edit_width"
-                android:layout_height="@dimen/edit_height" />
-
             <ProgressBar
                 android:visibility="gone"
-                android:id="@+id/pb_login"
+                android:id="@+id/pb_forget"
                 android:layout_marginTop="@dimen/top"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <Button
-                android:id="@+id/login_btn"
-                android:textColor="@color/white"
-                android:text="@string/masuk"
-                android:textAppearance="?android:textAppearanceMedium"
                 android:background="@color/darkBlur"
                 android:layout_marginTop="@dimen/top"
+                android:text="@string/forget"
+                android:textColor="@color/white"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:id="@+id/btn_forget"
                 android:layout_width="@dimen/edit_width"
                 android:layout_height="@dimen/edit_height" />
 
@@ -70,21 +60,15 @@
                     android:layout_marginBottom="@dimen/top"
                     android:textColor="@color/white"
                     android:background="@drawable/button_border"
-                    android:id="@+id/btn_to_forget"
-                    android:textAppearance="?android:textAppearanceSmall"
-                    android:text="@string/forget"
+                    android:id="@+id/forget_to_login"
+                    android:textAppearance="?android:textAppearanceMedium"
+                    android:text="@string/masuk"
                     android:layout_width="140dp"
                     android:layout_height="@dimen/edit_height" />
 
             </LinearLayout>
-
-
-
-
-
         </LinearLayout>
 
     </ScrollView>
-
 
 </RelativeLayout>

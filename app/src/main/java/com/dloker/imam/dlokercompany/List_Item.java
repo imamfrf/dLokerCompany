@@ -1,19 +1,23 @@
 package com.dloker.imam.dlokercompany;
 public class List_Item {
 
-    private String namaPelamar, descPelamar;
-    private int imgId;
+    private String namaPelamar, descPelamar, idLamaran, imgSrc;
+    //private int imgId;
 
     //constructor item yang akan dibuat
-    public List_Item(String namaPelamar, String descPelamar) {
+    public List_Item(String namaPelamar, String descPelamar, String idLamaran, String imgSrc) {
         this.namaPelamar = namaPelamar;
         this.descPelamar = descPelamar;
-        this.imgId = imgId;
+        this.imgSrc = imgSrc;
+        this.idLamaran = idLamaran;
     }
 
-    public int getImgId() {
+    public String getIdLamaran() {
+        return idLamaran;
+    }
 
-        return imgId;
+    public String getImgSrc() {
+        return imgSrc;
     }
 
     public String getNamaPelamar() {
