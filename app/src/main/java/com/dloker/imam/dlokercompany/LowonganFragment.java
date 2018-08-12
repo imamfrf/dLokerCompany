@@ -80,23 +80,35 @@ public class LowonganFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        db.getReference("Users").child(mAuth.getCurrentUser().getUid()).child("Pict")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        imgSrc = dataSnapshot.getValue(String.class);
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
         listItems = new ArrayList<List_Item>();
         db.getReference("Lowongan").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 listItems.clear();
-                db.getReference("Users").child(mAuth.getCurrentUser().getUid()).child("Pict")
-                        .addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                imgSrc = dataSnapshot.getValue(String.class);
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });
+//                db.getReference("Users").child(mAuth.getCurrentUser().getUid()).child("Pict")
+//                        .addValueEventListener(new ValueEventListener() {
+//                            @Override
+//                            public void onDataChange(DataSnapshot dataSnapshot) {
+//                                imgSrc = dataSnapshot.getValue(String.class);
+//                            }
+//
+//                            @Override
+//                            public void onCancelled(DatabaseError databaseError) {
+//
+//                            }
+//                        });
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                     if (snapshot.child("idCompany").exists()) {
                         if (snapshot.child("idCompany").getValue().equals(mAuth.getCurrentUser().getUid())) {
