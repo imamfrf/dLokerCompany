@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Settings">
+
+
+    <Button
+        android:id="@+id/bt_profile"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#7190ce"
+        android:drawableTop="@drawable/ic_person_black_24dp"
+        android:text="Profil Perusahaan"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/bt_chgpass"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/orangeAccent"
+        android:drawableTop="@drawable/ic_vpn_key_black_24dp"
+        android:text="Ubah Kata Sandi"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bt_profile" />
+
+</LinearLayout>

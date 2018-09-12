@@ -93,11 +93,13 @@ public class HomeFragment extends Fragment {
         //String a;
         listItems = new ArrayList<List_Item>();
         final String myUid = mAuth.getCurrentUser().getUid();
-        int initsize;
+
         db.getReference("Lamaran").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(final DataSnapshot dataSnapshot) {
                 listItems.clear();
+               // retrieveUsers();
+                //retrieveLowongan();
                 for (final DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     if (snapshot.exists()){
                         if (snapshot.child("idCompany").exists()) {

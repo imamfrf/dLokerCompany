@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="kategori_array">
+        <item>Kuliner</item>
+        <item>Teknologi</item>
+        <item>Busana dan Tata Rias</item>
+        <item>Keuangan</item>
+        <item>Sosial</item>
+    </string-array>
+</resources>
