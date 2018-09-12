@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".AddAcara"
+    tools:showIn="@layout/activity_add_acara">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="20dp"
+                    app:layout_constraintBottom_toTopOf="@+id/linearLayout1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/img_pictAcr"
+                        android:layout_width="200dp"
+                        android:layout_height="300dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/top"
+                        android:src="@drawable/avatar" />
+
+                    <ImageButton
+                        android:id="@+id/bt_pictAcr"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_alignEnd="@+id/img_pictAcr"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignRight="@+id/img_pictAcr"
+                        android:src="@drawable/ic_photo_camera_black_24dp" />
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayout1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/cardview_light_background"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:layout_editor_absoluteY="8dp">
+
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="@dimen/edit_width"
+                        android:layout_height="@dimen/edit_height"
+                        android:layout_marginTop="@dimen/top">
+
+                        <EditText
+                            android:id="@+id/et_namaAcara"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height"
+                            android:layout_margin="8dp"
+                            android:ems="10"
+                            android:hint="Nama Acara"
+                            android:inputType="textCapWords|textPersonName"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:textSize="16sp" />
+                    </android.support.design.widget.TextInputLayout>
+
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="@dimen/edit_width"
+                        android:layout_height="@dimen/edit_height"
+                        android:layout_marginTop="@dimen/top">
+
+                        <EditText
+                            android:id="@+id/et_lokasiAcr"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height"
+                            android:layout_margin="8dp"
+                            android:ems="10"
+                            android:hint="Lokasi Acara"
+                            android:inputType="textCapSentences|textPersonName"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:textSize="16sp" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="@dimen/edit_width"
+                        android:layout_height="@dimen/edit_height"
+                        android:layout_marginTop="@dimen/top">
+
+                        <EditText
+                            android:id="@+id/et_waktuAcr"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height"
+                            android:layout_margin="8dp"
+                            android:ems="10"
+                            android:hint="Waktu Acara"
+                            android:inputType="textCapSentences|text|datetime"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:textSize="16sp" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="@dimen/edit_width"
+                        android:layout_height="@dimen/edit_height"
+                        android:layout_marginTop="@dimen/top">
+
+                        <EditText
+                            android:id="@+id/et_contactP"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_height"
+                            android:layout_margin="8dp"
+                            android:ems="10"
+                            android:hint="Kontak Yang Dapat Dihubungi"
+                            android:inputType="numberDecimal"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:textSize="16sp" />
+                    </android.support.design.widget.TextInputLayout>
+
+
+                    <!--<Spinner-->
+                    <!--android:id="@+id/sp_kategori"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="&#45;&#45;PILIH KATEGORI&#45;&#45;"-->
+                    <!--android:ellipsize="marquee"-->
+                    <!--android:background="@color/background"/>-->
+
+                    <!--<Spinner-->
+                    <!--android:id="@+id/sp_lokasi"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="&#45;&#45;PILIH LOKASI&#45;&#45;"-->
+                    <!--android:ellipsize="marquee"-->
+                    <!--android:background="@color/background"/>-->
+
+
+                    <!--</LinearLayout>-->
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="324dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:background="@color/cardview_light_background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout1">
+
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:text="Detail Acara Penyuluhan"
+                        android:textColor="@color/background"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/et_detailAcr"
+                        android:layout_width="fill_parent"
+                        android:layout_height="0dip"
+                        android:layout_margin="8dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/spinner_border"
+                        android:gravity="top"
+
+                        android:inputType="textCapSentences|textMultiLine"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp" />
+
+                </LinearLayout>
+
+                <ProgressBar
+                    android:id="@+id/pb_acara"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/top"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/bt_upAcr"
+                    android:layout_width="match_parent"
+                    android:layout_height="39dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@color/background"
+                    android:text="UNGGAH "
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+
+</android.support.constraint.ConstraintLayout>

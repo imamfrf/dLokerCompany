@@ -6,13 +6,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -20,25 +17,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
-
-import java.io.File;
-import java.io.IOException;
 
 public class DetailPelamar extends AppCompatActivity {
     TextView tv_nama, tv_loker, tv_date, tv_gender, tv_birth, tv_addr, tv_phone, tv_prefjob, tv_disable;
@@ -49,6 +35,7 @@ public class DetailPelamar extends AppCompatActivity {
     private FirebaseDatabase db;
     //String nama, loker, date, gender, birth, addr, phone, prefJob, disable, idLamaran, idLowongan, idPelamar;
     String idLamaran, idPel, cv;
+   // public MainActivity activity = new MainActivity();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -176,11 +163,16 @@ public class DetailPelamar extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 // continue with delete
                                 db.getReference("Lamaran").child(idLamaran).child("statusLmr").setValue("accepted");
+                                db.getReference("Lamaran").child(idLamaran).child("ntfUser").setValue("true");
+                                db.getReference("Lamaran").child(idLamaran).child("AlertUser").setValue("true");
+
+                                //db.getReference("Lamaran").child(idLamaran).child("ntfUser").setValue("true");
                                 Snackbar.make(view, "LAMARAN DITERIMA", Snackbar.LENGTH_SHORT).show();
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
                                         Intent i=new Intent(DetailPelamar.this, MainActivity.class);
+                                        i.putExtra("ntf", "2");
                                         startActivity(i);
                                     }
                                 }, 1000);
@@ -208,11 +200,14 @@ public class DetailPelamar extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 // continue with delete
                                 db.getReference("Lamaran").child(idLamaran).child("statusLmr").setValue("refused");
+                                db.getReference("Lamaran").child(idLamaran).child("ntfUser").setValue("true");
+                                db.getReference("Lamaran").child(idLamaran).child("AlertUser").setValue("true");
                                 Snackbar.make(view, "LAMARAN DITOLAK", Snackbar.LENGTH_SHORT).show();
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
                                         Intent i=new Intent(DetailPelamar.this, MainActivity.class);
+                                        i.putExtra("ntf", "2");
                                         startActivity(i);
                                     }
                                 }, 1000);

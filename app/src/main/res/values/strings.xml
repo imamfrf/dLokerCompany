@@ -30,4 +30,6 @@
     <string name="title_activity_detail_diterima">DetailDiterima</string>
     <string name="title_activity_change_pass">ChangePass</string>
     <string name="title_activity_lupa_pass">LupaPass</string>
+    <string name="title_activity_add_acara">AddAcara</string>
+    <string name="title_activity_detail_acara">DetailAcara</string>
 </resources>
