@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">d\'Loker Partner</string>
+    <string name="todo">TODO</string>
+    <string name="email">Email</string>
+    <string name="kata_sandi">Kata Sandi</string>
+    <string name="masuk">Masuk</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="daftar">Daftar</string>
+    <string name="forget">Lupa Password</string>
+    <string name="title_activity_detail_pelamar">DetailPelamar</string>
+    <string name="textview">TextView</string>
+    <string name="melamar_pada">Melamar pada :</string>
+    <string name="title_activity_add_lowongan">AddLowongan</string>
+    <string name="title_activity_edit_profile">EditProfile</string>
+    <string name="title_activity_profile">Profile</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_lowongan">Lowongan</string>
+    <string name="title_activity_daftar_pelamar">DaftarPelamar</string>
+    <string name="nama">Nama</string>
+    <string name="title_activity_profile_company">ProfileCompany</string>
+    <string name="title_activity_detail_diterima">DetailDiterima</string>
+    <string name="title_activity_change_pass">ChangePass</string>
+    <string name="title_activity_lupa_pass">LupaPass</string>
+    <string name="title_activity_add_acara">AddAcara</string>
+    <string name="title_activity_detail_acara">DetailAcara</string>
+</resources>

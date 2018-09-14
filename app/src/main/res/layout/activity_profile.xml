@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Profile">
+
+<ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/top"
+                android:orientation="horizontal">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profile_pict"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:src="@drawable/avatar"
+                    app:civ_border_width="0dp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="@dimen/top"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/profile_nama"
+                        android:layout_width="180dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/nama"
+                        android:textAppearance="?android:textAppearanceLarge" />
+
+                    <TextView
+                        android:id="@+id/profile_email"
+                        android:layout_width="170dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:text="@string/email"
+                        android:textAppearance="?android:textAppearanceMedium" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/judul_profile"
+                android:layout_width="@dimen/edit_width"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/top"
+                android:text="Data Perusahaan"
+                android:textAppearance="?android:textAppearanceLarge"
+                android:textColor="@color/darkBlur" />
+
+
+            <TextView
+                android:layout_width="@dimen/edit_width"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/top"
+                android:text="Alamat"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textColor="@color/darkBlur" />
+
+            <TextView
+                android:id="@+id/tv_alamat"
+                android:layout_width="@dimen/edit_width"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/to_title"
+                android:text=""
+                android:textAppearance="?android:textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/top"
+                android:text="Website"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textColor="@color/darkBlur" />
+
+            <TextView
+                android:id="@+id/tv_web"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/to_title"
+                android:text=""
+                android:textAppearance="?android:textAppearanceMedium" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/top"
+                android:layout_marginTop="@dimen/top"
+                android:orientation="horizontal">
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <!--<android.support.design.widget.FloatingActionButton-->
+        <!--android:id="@+id/fab_edit_profile"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_marginBottom="65dp"-->
+        <!--android:layout_marginLeft="320dp"-->
+        <!--android:src="@drawable/ic_edit_black_24dp" />-->
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_edit_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="65dp"
+        android:layout_marginEnd="30dp"
+        android:src="@drawable/ic_edit_black_24dp" />
+
+</RelativeLayout>

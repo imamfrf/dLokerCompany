@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".ChangePass"
+    tools:showIn="@layout/activity_change_pass">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp"
+        android:background="@color/cardview_light_background"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent" >
+
+        <EditText
+            android:id="@+id/et_oldPass"
+            android:layout_width="@dimen/edit_width"
+            android:layout_height="@dimen/edit_height"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="@dimen/top"
+            android:hint="Masukkan Kata Sandi Lama"
+            android:inputType="textPassword"
+            android:padding="5dp" />
+
+        <EditText
+            android:id="@+id/et_newPass"
+            android:layout_width="@dimen/edit_width"
+            android:layout_height="@dimen/edit_height"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="@dimen/top"
+            android:hint="Masukkan Kata Sandi Baru"
+            android:inputType="textPassword" />
+
+        <Button
+            android:id="@+id/bt_savePass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@color/background"
+            android:text="SIMPAN" />
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>
