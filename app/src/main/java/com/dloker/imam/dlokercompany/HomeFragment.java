@@ -8,7 +8,9 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.AudioAttributes;
 import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -123,12 +125,23 @@ public class HomeFragment extends Fragment {
                                         .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
                                 NotificationManager notificationManager = (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
+                                Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+//                                AudioAttributes audioAttributes = new AudioAttributes.Builder()
+//                                        .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+//                                        .setUsage(AudioAttributes.USAGE_ALARM)
+//                                        .build();
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                    AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                                            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                                            .setUsage(AudioAttributes.USAGE_ALARM)
+                                            .build();
+
                                     NotificationChannel channel = new NotificationChannel(
                                             CHANNEL_ID, "Lamaran Masuk", NotificationManager.IMPORTANCE_DEFAULT
                                     );
                                     channel.setDescription("Lamaran masuk baru diterima");
                                     channel.setShowBadge(true);
+                                    channel.setSound(defaultSoundUri, audioAttributes);
                                     channel.canShowBadge();
                                     channel.enableLights(true);
                                     channel.setLightColor(Color.RED);
@@ -205,11 +218,6 @@ public class HomeFragment extends Fragment {
 
         });
 
-        final int initSize = listItems.size();
-        String sz = Integer.toString(initSize);
-        Log.d("haha", sz);
-        Log.d("hehe", Integer.toString(listItems.size()));
-
 
         // Inflate the layout for this fragment
         return v;
@@ -217,7 +225,7 @@ public class HomeFragment extends Fragment {
 
     public void retrieveUsers(){
         usr = new HashMap<String, String>();
-        db = FirebaseDatabase.getInstance();
+        //db = FirebaseDatabase.getInstance();
         db.getReference("Users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -236,7 +244,7 @@ public class HomeFragment extends Fragment {
 
     public void retrieveLowongan(){
         lwg = new HashMap<String, String>();
-        db = FirebaseDatabase.getInstance();
+        //db = FirebaseDatabase.getInstance();
         db.getReference("Lowongan").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

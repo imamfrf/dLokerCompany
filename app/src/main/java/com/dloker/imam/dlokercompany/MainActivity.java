@@ -79,8 +79,6 @@ public class MainActivity extends AppCompatActivity
         toolbar = (Toolbar) findViewById(R.id.toolbar1);
 
 
-
-
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Terkini"));
         tabLayout.addTab(tabLayout.newTab().setText("Diterima"));
